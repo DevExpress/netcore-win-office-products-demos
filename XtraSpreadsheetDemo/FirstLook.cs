@@ -5,14 +5,17 @@ using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 using DevExpress.Spreadsheet;
+using DevExpress.Utils;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 
 namespace DevExpress.XtraSpreadsheet.Demos {
-    public partial class FirstLookModule : Form {
+    public partial class FirstLookModule : RibbonForm
+    {
         bool changing = false;
 
         public FirstLookModule() {
+            WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
             InitializeComponent();
             spreadsheetControl1.Options.Culture = new CultureInfo("en-US");
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"InvestmentPortfolio.xltx");
@@ -24,7 +27,12 @@ namespace DevExpress.XtraSpreadsheet.Demos {
             spreadsheetControl1.SelectionChanged += spreadsheetControl1_SelectionChanged;
             edZoom.EditValueChanged += edZoom_EditValueChanged;
 
-            spreadsheetControl1.CreateRibbon();
+            RibbonControl ribbonControl = spreadsheetControl1.CreateRibbon();
+            this.Controls.Add(ribbonControl);
+            ribbonControl.ShowApplicationButton = DefaultBoolean.False;
+            Ribbon = ribbonControl;
+            ribbonControl.ToolbarLocation = RibbonQuickAccessToolbarLocation.Hidden;
+            this.Text = "XtraSpreadsheet Demo";
         }
 
         #region Properties

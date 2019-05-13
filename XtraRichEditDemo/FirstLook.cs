@@ -2,6 +2,7 @@
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
+using DevExpress.Utils;
 using DevExpress.XtraBars.Ribbon;
 using DevExpress.XtraEditors;
 using DevExpress.XtraRichEdit.API.Layout;
@@ -9,18 +10,23 @@ using DevExpress.XtraRichEdit.API.Native;
 using DevExpress.XtraRichEdit.Demos.Forms;
 
 namespace DevExpress.XtraRichEdit.Demos {
-    public partial class FirstLookModule : Form {
+    public partial class FirstLookModule : RibbonForm {
         bool _isZoomChanging = false;
         int _pageCount = 1;
         int _currentPage = 1;
         bool _includeTextBoxes = false;
 
         public FirstLookModule() {
+            WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             InitializeComponent();
 
             RibbonControl ribbonControl = richEditControl.CreateRibbon();
             this.Controls.Add(ribbonControl);
+            ribbonControl.ShowApplicationButton = DefaultBoolean.False;
+            Ribbon = ribbonControl;
+            ribbonControl.ToolbarLocation = RibbonQuickAccessToolbarLocation.Hidden;
+            this.Text = "XtraRichEdit Demo";
             AppendCustomRibbonItems(ribbonControl);
         }
 
