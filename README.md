@@ -32,7 +32,7 @@ Follow the steps below to add the DevExpress NuGet packages packages to your .Ne
 
 1. [Register](https://docs.devexpress.com/GeneralInformation/116698/installation/install-devexpress-controls-using-nuget-packages/setup-visual-studio%27s-nuget-package-manager) the DevExpress Early Access feed in Visual Studio's NuGet Package Manager.
 
-    'https://nuget.devexpress.com/early-access/api'
+    `https://nuget.devexpress.com/early-access/api`
 
 2. Install the **DevExpress.WindowsDesktop.Win** package (for .Net Core 3).
 
