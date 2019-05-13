@@ -9,7 +9,7 @@ namespace PdfViewerDemo {
         [STAThread]
         static void Main() {
 			DevExpress.Skins.SkinManager.EnableFormSkins();
-            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful");
+            DevExpress.LookAndFeel.UserLookAndFeel.Default.SetSkinStyle("Office 2019 Colorful", "Fire Brick");
             DevExpress.XtraEditors.WindowsFormsSettings.AllowSkinEditorAttach = DevExpress.Utils.DefaultBoolean.True;
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
