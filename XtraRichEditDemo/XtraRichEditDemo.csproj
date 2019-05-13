@@ -1,0 +1,34 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>netcoreapp3.0</TargetFramework>
+	  <EnableDefaultCompileItems>false</EnableDefaultCompileItems>
+	  <EnableDefaultEmbeddedResourceItems>false</EnableDefaultEmbeddedResourceItems>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DevExpress.WindowsDesktop.Win" Version="19.1.3-*" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="4.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Include="DocumentStatisticsForm.cs" />
+    <Compile Include="DocumentStatisticsForm.Designer.cs" />
+    <Compile Include="FirstLook.cs" />
+    <Compile Include="FirstLook.Designer.cs" />
+    <Compile Include="Program.cs" />
+    <Content Include="FirstLook.docx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="DocumentStatisticsForm.resx" >
+      <DependentUpon>DocumentStatisticsForm.cs</DependentUpon>
+	  </EmbeddedResource>
+    <EmbeddedResource Include="FirstLook.resx" >
+      <DependentUpon>FirstLook.cs</DependentUpon>	
+    </EmbeddedResource>
+  </ItemGroup>
+
+ 
+
+</Project>
