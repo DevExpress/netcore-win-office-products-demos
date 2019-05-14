@@ -15,7 +15,6 @@ namespace DevExpress.XtraSpreadsheet.Demos {
         bool changing = false;
 
         public FirstLookModule() {
-            WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
             InitializeComponent();
             spreadsheetControl1.Options.Culture = new CultureInfo("en-US");
             string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"InvestmentPortfolio.xltx");

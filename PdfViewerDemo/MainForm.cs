@@ -20,7 +20,6 @@ namespace PdfViewerDemo {
         readonly string mainFormText;
 
         public MainForm() {
-            WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
             InitializeComponent();
             UpdateGlass();
             pdfViewer.DocumentCreator = "PDF Viewer Demo";
