@@ -17,6 +17,7 @@ namespace DevExpress.XtraRichEdit.Demos {
         bool _includeTextBoxes = false;
 
         public FirstLookModule() {
+            WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
             System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance);
             InitializeComponent();
 
