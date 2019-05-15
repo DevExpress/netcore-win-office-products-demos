@@ -12,40 +12,43 @@ using DevExpress.XtraEditors;
 namespace DevExpress.XtraSpreadsheet.Demos {
     public partial class FirstLookModule : RibbonForm
     {
-        bool changing = false;
+        private bool changing = false;
 
-        public FirstLookModule() {
+        public FirstLookModule()
+        {
             WindowsFormsSettings.UseDXDialogs = DefaultBoolean.True;
+
             InitializeComponent();
-            spreadsheetControl1.Options.Culture = new CultureInfo("en-US");
-            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"InvestmentPortfolio.xltx");
-            spreadsheetControl1.LoadDocument(path);
-            spreadsheetControl1.InvalidFormatException += spreadsheetControl1_InvalidFormatException;
-            spreadsheetControl1.DocumentClosing += spreadsheetControl1_DocumentClosing;
-            spreadsheetControl1.ActiveSheetChanged += spreadsheetControl1_ZoomChanged;
-            spreadsheetControl1.ZoomChanged += spreadsheetControl1_ZoomChanged;
-            spreadsheetControl1.SelectionChanged += spreadsheetControl1_SelectionChanged;
-            edZoom.EditValueChanged += edZoom_EditValueChanged;
+            SubsribeEvents();
 
             RibbonControl ribbonControl = spreadsheetControl1.CreateRibbon();
             this.Controls.Add(ribbonControl);
             ribbonControl.ShowApplicationButton = DefaultBoolean.False;
-            Ribbon = ribbonControl;
             ribbonControl.ToolbarLocation = RibbonQuickAccessToolbarLocation.Hidden;
-            this.Text = "XtraSpreadsheet Demo";
+            Ribbon = ribbonControl;
+            Ribbon.SelectedPage = Ribbon.Pages["Home"];
+
+            string path = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location), @"InvestmentPortfolio.xltx");
+            spreadsheetControl1.LoadDocument(path);
         }
 
-        #region Properties
-        //protected internal override RibbonPage SelectedRibbonPage { get { return homeRibbonPage1; } }
-        #endregion
+        private void SubsribeEvents()
+        {
+            spreadsheetControl1.ActiveSheetChanged += spreadsheetControl1_ZoomChanged;
+            spreadsheetControl1.DocumentClosing += spreadsheetControl1_DocumentClosing;
+            spreadsheetControl1.InvalidFormatException += spreadsheetControl1_InvalidFormatException;
+            spreadsheetControl1.SelectionChanged += spreadsheetControl1_SelectionChanged;
+            spreadsheetControl1.ZoomChanged += spreadsheetControl1_ZoomChanged;
+            edZoom.EditValueChanged += edZoom_EditValueChanged;
+        }
 
-        void spreadsheetControl1_InvalidFormatException(object sender, SpreadsheetInvalidFormatExceptionEventArgs e) {
+        private void spreadsheetControl1_InvalidFormatException(object sender, SpreadsheetInvalidFormatExceptionEventArgs e) {
             XtraMessageBox.Show(string.Format("Cannot open the file '{0}' because the file format or file extension is not valid.\n" + 
                 "Verify that file has not been corrupted and that the file extension matches the format of the file.", e.SourceUri), 
                 "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
-        void spreadsheetControl1_DocumentClosing(object sender, CancelEventArgs e) {
+        private void spreadsheetControl1_DocumentClosing(object sender, CancelEventArgs e) {
             if (spreadsheetControl1.Modified) {
                 string currentFileName = spreadsheetControl1.Options.Save.CurrentFileName;
                 string message = !string.IsNullOrEmpty(currentFileName) ?
@@ -60,7 +63,7 @@ namespace DevExpress.XtraSpreadsheet.Demos {
             }
         }
 
-        void spreadsheetControl1_ZoomChanged(object sender, EventArgs e) {
+        private void spreadsheetControl1_ZoomChanged(object sender, EventArgs e) {
             if (changing)
                 return;
             changing = true;
@@ -74,21 +77,7 @@ namespace DevExpress.XtraSpreadsheet.Demos {
             }
         }
 
-        void edZoom_EditValueChanged(object sender, EventArgs e) {
-            if (changing)
-                return;
-            changing = true;
-            try {
-                int zoomValue = Convert.ToInt32(edZoom.EditValue);
-                spreadsheetControl1.ActiveViewZoom = zoomValue;
-                edZoom.Caption = string.Format("{0}%", zoomValue);
-            }
-            finally {
-                changing = false;
-            }
-        }
-
-        void spreadsheetControl1_SelectionChanged(object sender, EventArgs e) {
+        private void spreadsheetControl1_SelectionChanged(object sender, EventArgs e) {
             int count = 0;
             double sum = 0.0;
             int numericCount = 0;
@@ -111,6 +100,23 @@ namespace DevExpress.XtraSpreadsheet.Demos {
                 double average = sum / numericCount;
                 lblSelection.Caption = string.Format(spreadsheetControl1.Options.Culture, 
                     "Average: {0:#0.######}  Count: {1}  Sum: {2}", average, count, sum);
+            }
+        }
+
+        private void edZoom_EditValueChanged(object sender, EventArgs e)
+        {
+            if (changing)
+                return;
+            changing = true;
+            try
+            {
+                int zoomValue = Convert.ToInt32(edZoom.EditValue);
+                spreadsheetControl1.ActiveViewZoom = zoomValue;
+                edZoom.Caption = string.Format("{0}%", zoomValue);
+            }
+            finally
+            {
+                changing = false;
             }
         }
     }

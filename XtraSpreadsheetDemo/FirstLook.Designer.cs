@@ -101,12 +101,15 @@
             this.Size = new System.Drawing.Size(784, 600);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.ribbonStatusBar1);
+            this.Text = "XtraSpreadsheet Demo";
             this.Name = "FirstLookModule";
             this.Controls.Add(this.ribbonControl1);
             this.Controls.Add(this.spreadsheetControl1);
             this.Controls.SetChildIndex(this.ribbonControl1, 0);
             this.Controls.SetChildIndex(this.ribbonStatusBar1, 0);
             this.Controls.SetChildIndex(this.spreadsheetControl1, 0);
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+
             ((System.ComponentModel.ISupportInitialize)(this.ribbonControl1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.repositoryItemZoomTrackBar1)).EndInit();
             this.ResumeLayout(false);
